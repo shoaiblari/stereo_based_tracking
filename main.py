@@ -657,18 +657,18 @@ def track_nuscenes(data_split, covariance_id, match_distance, match_threshold, m
   '''
   save_dir = os.path.join(save_root, data_split); mkdir_if_missing(save_dir)
   if 'train' in data_split:
-    detection_file = '/juno/u/hkchiu/dataset/nuscenes_new/megvii_train.json'
-    data_root = '/juno/u/hkchiu/dataset/nuscenes/trainval'
+    detection_file = '/cs231a/data/nuscenes_new/megvii_train.json'
+    data_root = '/cs231a/data/nuscenes/trainval'
     version='v1.0-trainval'
     output_path = os.path.join(save_dir, 'results_train_probabilistic_tracking.json')
   elif 'val' in data_split:
-    detection_file = '/juno/u/hkchiu/dataset/nuscenes_new/megvii_val.json'
-    data_root = '/juno/u/hkchiu/dataset/nuscenes/trainval'
+    detection_file = '/cs231a/data/nuscenes_new/megvii_val.json'
+    data_root = '/cs231a/data/nuscenes/trainval'
     version='v1.0-trainval'
     output_path = os.path.join(save_dir, 'results_val_probabilistic_tracking.json')
   elif 'test' in data_split:
-    detection_file = '/juno/u/hkchiu/dataset/nuscenes_new/megvii_test.json'
-    data_root = '/juno/u/hkchiu/dataset/nuscenes/test'
+    detection_file = '/cs231a/data/nuscenes_new/megvii_test.json'
+    data_root = '/cs231a/data/nuscenes/test'
     version='v1.0-test'
     output_path = os.path.join(save_dir, 'results_test_probabilistic_tracking.json')
 

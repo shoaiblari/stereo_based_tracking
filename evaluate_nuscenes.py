@@ -1,5 +1,5 @@
 # https://github.com/nutonomy/nuscenes-devkit/blob/master/python-sdk/nuscenes/eval/tracking/evaluate.py
-# /juno/u/hkchiu/nuscenes-devkit/python-sdk/nuscenes/eval/tracking/evaluate.py
+# /home/emmerich/ws/chiu/nuscenes-devkit/python-sdk/nuscenes/eval/tracking/evaluate.py
 
 import argparse
 import json
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     parser.add_argument('--eval_set', type=str, default='val',
                         help='Which dataset split to evaluate on, train, val or test.')
     #parser.add_argument('--dataroot', type=str, default='/data/sets/nuscenes',
-    parser.add_argument('--dataroot', type=str, default='/juno/u/hkchiu/dataset/nuscenes/trainval',
+    parser.add_argument('--dataroot', type=str, default='/cs231a/data/nuscenes/trainval',
                         help='Default nuScenes data directory.')
     parser.add_argument('--version', type=str, default='v1.0-trainval',
                         help='Which version of the nuScenes dataset to evaluate on, e.g. v1.0-trainval.')

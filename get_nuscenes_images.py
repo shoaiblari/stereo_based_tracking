@@ -18,22 +18,7 @@ from tqdm import tqdm
 
 '''Modellled after main.py'''
 
-def test(data_split, covariance_id, match_distance, match_threshold, match_algorithm, save_root, use_angular_velocity):
-  '''
-  submission {
-    "meta": {
-        "use_camera":   <bool>  -- Whether this submission uses camera data as an input.
-        "use_lidar":    <bool>  -- Whether this submission uses lidar data as an input.
-        "use_radar":    <bool>  -- Whether this submission uses radar data as an input.
-        "use_map":      <bool>  -- Whether this submission uses map data as an input.
-        "use_external": <bool>  -- Whether this submission uses external data as an input.
-    },
-    "results": {
-        sample_token <str>: List[sample_result] -- Maps each sample_token to a list of sample_results.
-    }
-  }
-
-  '''
+def test(data_split, save_root):
   save_dir = os.path.join(save_root, data_split); mkdir_if_missing(save_dir)
   if 'train' in data_split:
     detection_file = '/cs231a/data/nuscenes_new/megvii_train.json'
@@ -94,27 +79,13 @@ def test(data_split, covariance_id, match_distance, match_threshold, match_algor
 
 
 def main():
-  if len(sys.argv)!=9:
-    print("Usage: python main.py data_split(train, val, test) covariance_id(0, 1, 2) match_distance(iou or m) match_threshold match_algorithm(greedy or h) use_angular_velocity(true or false) dataset save_root")
+  if len(sys.argv)!=3:
+    print("Usage: python get_nuscenes_images.py data_split(train, val, test) save_root")
     sys.exit(1)
 
   data_split = sys.argv[1]
-  covariance_id = int(sys.argv[2])
-  match_distance = sys.argv[3]
-  match_threshold = float(sys.argv[4])
-  match_algorithm = sys.argv[5]
-  use_angular_velocity = sys.argv[6] == 'True' or sys.argv[6] == 'true'
-  dataset = sys.argv[7]
-  save_root = os.path.join('./' + sys.argv[8])
-
-  if dataset == 'kitti':
-    print('track kitti not supported')
-  elif dataset == 'nuscenes':
-    print('track nuscenes')
-    track_nuscenes(data_split, covariance_id, match_distance, match_threshold, match_algorithm, save_root, use_angular_velocity)
-  elif dataset == 'nuscenes':
-    print('test')
-    test(data_split, covariance_id, match_distance, match_threshold, match_algorithm, save_root, use_angular_velocity)
+  save_root = os.path.join('./' + sys.argv[2])
+  test(data_split, covariance_id, match_distance, match_threshold, match_algorithm, save_root, use_angular_velocity)
 
 if __name__ == '__main__':
     main()

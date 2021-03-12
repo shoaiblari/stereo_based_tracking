@@ -11,8 +11,8 @@ from covariance import Covariance
 import json
 from nuscenes import NuScenes
 from nuscenes.eval.common.data_classes import EvalBoxes
-from nuscenes.eval.tracking.data_classes import TrackingBox 
-from nuscenes.eval.detection.data_classes import DetectionBox 
+from nuscenes.eval.tracking.data_classes import TrackingBox
+from nuscenes.eval.detection.data_classes import DetectionBox
 from pyquaternion import Quaternion
 from tqdm import tqdm
 
@@ -32,7 +32,7 @@ def test(data_split, save_root):
     output_path = os.path.join(save_dir, 'results_val_probabilistic_tracking.json')
   elif 'test' in data_split:
     detection_file = '/cs231a/data/nuscenes_new/megvii_test.json'
-    data_root = '/cs231a/data/nuscenes/test'
+    data_root = '/cs231a/data/nuscenes'
     version='v1.0-test'
     output_path = os.path.join(save_dir, 'results_test_probabilistic_tracking.json')
 
@@ -51,24 +51,16 @@ def test(data_split, save_root):
   print("Loaded results from {}. Found detections for {} samples."
     .format(detection_file, len(all_results.sample_tokens)))
 
-  processed_scene_tokens = set()
-  for sample_token_idx in range(10))):
+  for sample_token_idx in range(10):
     sample_token = all_results.sample_tokens[sample_token_idx]
     scene_token = nusc.get('sample', sample_token)['scene_token']
-    if scene_token in processed_scene_tokens:
-      continue
     first_sample_token = nusc.get('scene', scene_token)['first_sample_token']
-    current_sample_token = first_sample_token
 
-    data_path, box_list, cam_intrinic = nuc.get_sample_dat(current_sample_token)
+    data_path, box_list, cam_intrinic = nusc.get_sample_data(first_sample_token)
     data = Image.open(data_path)
+
     total_frames += 1
-
-      # get next frame and continue the while loop
-    current_sample_token = nusc.get('sample', current_sample_token)['next']
-
-      # left while loop and mark this scene as processed
-    processed_scene_tokens.add(scene_token)
+    print("Total Tracking %d frames"%(total_frames))
 
     # finished tracking all scenes, write output data
   output_data = {'meta': meta, 'results': results}
@@ -85,7 +77,7 @@ def main():
 
   data_split = sys.argv[1]
   save_root = os.path.join('./' + sys.argv[2])
-  test(data_split, covariance_id, match_distance, match_threshold, match_algorithm, save_root, use_angular_velocity)
+  test(data_split, save_root)
 
 if __name__ == '__main__':
     main()
